@@ -10,6 +10,7 @@ import (
 	"github.com/monitoror/monitoror/api/config/models"
 	pkgConfig "github.com/monitoror/monitoror/internal/pkg/api/config"
 	coreModels "github.com/monitoror/monitoror/models"
+	"github.com/monitoror/monitoror/notification"
 	"github.com/monitoror/monitoror/pkg/humanize"
 )
 
@@ -74,6 +75,8 @@ func (cu *configUsecase) hydrateTile(configBag *models.ConfigBag, tile *models.T
 			urlParams.Add(key, humanize.Interface(value))
 		}
 	}
+	// add notification query name for alert
+	urlParams.Add(notification.QueryName, tile.Label)
 	tile.URL = fmt.Sprintf("%s?%s", *tileVariantMetadata.RoutePath, urlParams.Encode())
 
 	// Add initial max delay from config

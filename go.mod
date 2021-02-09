@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/AlekSi/pointer v1.0.0
 	github.com/GeertJohan/go.rice v1.0.0
+	github.com/LinkinStars/dingrobot v1.0.1
 	github.com/basgys/goxml2json v1.1.0
 	github.com/bitly/go-simplejson v0.5.0 // indirect
 	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect

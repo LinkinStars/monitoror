@@ -6,6 +6,7 @@ import (
 	configUsecase "github.com/monitoror/monitoror/api/config/usecase"
 	"github.com/monitoror/monitoror/api/info"
 	"github.com/monitoror/monitoror/monitorables"
+	"github.com/monitoror/monitoror/notification"
 	"github.com/monitoror/monitoror/service/router"
 
 	"github.com/jsdidierlaurent/echo-middleware/cache"
@@ -27,6 +28,7 @@ func InitApis(s *Server) {
 	apiGroup.GET("/configs/:config", s.CacheMiddleware.UpstreamCacheHandler(confDelivery.GetConfig))
 
 	// ---------------------------------- //
+	apiGroup.Use(notification.ResponseInterceptor())
 	s.store.MonitorableRouter = router.NewMonitorableRouter(apiGroup, s.CacheMiddleware)
 	// ---------------------------------- //
 
@@ -40,4 +42,7 @@ func InitApis(s *Server) {
 			}
 		}
 	}
+
+	// ------------- NOTIFICATION ------------- //
+	notification.RegisterNotification(s.store)
 }
